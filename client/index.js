@@ -34,9 +34,9 @@ console.log(MY_FAVORITE_BRANDS[0]);
 // I can find on these e-shops
 // 2. Log the variable
 
+const link = 'https://www.loom.fr/products/le-t-shirt';
 
-
-
+console.log(link);
 
 /**
  * 👕
@@ -51,37 +51,67 @@ console.log(MY_FAVORITE_BRANDS[0]);
 // 1. Create a variable and assign it the number of products
 // 2. Log the variable
 
+const numProducts = marketplace.length;
+console.log(numProducts);
 
 // 🎯 TODO: Brands name
 // 1. Create a variable and assign it the list of brands name only
 // 2. Log the variable
 // 3. Log how many brands we have
 
+var brand_name = [];
+for (var i = 0; i<marketplace.length; i++){
+  if(brand_name.includes(marketplace[i].brand) == false){
+    brand_name.push(marketplace[i].brand);
+  }
+}
+console.log(brand_name);
+console.log(brand_name.length);
 
 // 🎯 TODO: Sort by price
 // 1. Create a function to sort the marketplace products by price
 // 2. Create a variable and assign it the list of products by price from lowest to highest
 // 3. Log the variable
 
+var marketplacebyprice = marketplace.sort(function(a,b) {
+  return a.price - b.price;
+});
+console.log(marketplacebyprice);
 
 // 🎯 TODO: Sort by date
 // 1. Create a function to sort the marketplace objects by products date
 // 2. Create a variable and assign it the list of products by date from recent to old
 // 3. Log the variable
 
+var marketplacebydate = marketplace.sort(function(a,b) {
+  a = new Date(a.date);
+  b = new Date(b.date)
+  return b - a;
+});
+console.log(marketplacebydate);
 
 // 🎯 TODO: Filter a specific price range
 // 1. Filter the list of products between 50€ and 100€
 // 2. Log the list
 
+var list = []
+marketplace.forEach(element => {
+  if((element.price > 50) & (element.price < 100)){
+    list.push(element);
+  }
+});
+console.log(list);
 
 // 🎯 TODO: Average Basket
 // 1. Determine the average basket of the marketplace
 // 2. Log the average
 
-
-
-
+var moy=0;
+marketplace.forEach(element => {
+  moy+=element.price;
+});
+moy /= numProducts;
+console.log(moy);
 
 /**
  * 🏎
