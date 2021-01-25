@@ -5,7 +5,7 @@
 let currentProducts = [];
 let currentPagination = {};
 
-// inititiqte selectors
+// initiate selectors
 const selectShow = document.querySelector('#show-select');
 const selectPage = document.querySelector('#page-select');
 const sectionProducts = document.querySelector('#products');
@@ -121,3 +121,7 @@ document.addEventListener('DOMContentLoaded', () =>
     .then(setCurrentProducts)
     .then(() => render(currentProducts, currentPagination))
 );
+
+selectPage.addEventListener('change', event => {
+  
+});
