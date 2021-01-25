@@ -136,19 +136,35 @@ console.log(moy);
 // 2. Log the variable
 // 3. Log the number of products by brands
 
+var l1 = [];
+var l2 = [];
+var l3 = [];
+var l4 = [];
+var l5 = [];
+
+const brands = {};
+const products = {};
+
 
 // 🎯 TODO: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
 // 2. Log the sort
 
+var marketplacebypriceV2 = marketplace.sort(function(a,b) {
+  return b.price - a.price;
+});
+console.log(marketplacebypriceV2);
 
 // 🎯 TODO: Sort by date for each brand
 // 1. For each brand, sort the products by date, from old to recent
 // 2. Log the sort
 
-
-
-
+var marketplacebydateV2 = marketplace.sort(function(a,b) {
+  a = new Date(a.date);
+  b = new Date(b.date)
+  return a - b;
+});
+console.log(marketplacebydateV2);
 
 /**
  * 💶
@@ -237,20 +253,63 @@ const COTELE_PARIS = [
 // // 1. Log if we have new products only (true or false)
 // // A new product is a product `released` less than 2 weeks.
 
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth()).padStart(2, '0');
+var yyyy = today.getFullYear();
+
+today = dd + '/' + mm + '/' + yyyy;
+
+var bool = false;
+COTELE_PARIS.forEach(element => {
+  var d = new Date(element.released);
+  var finalDate = new Date();
+  finalDate = d.getDay() + '/' + d.getMonth() + '/' + d.getFullYear();
+  console.log(finalDate);
+  const diffTime = Math.abs(today - finalDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+  console.log(diffDays);
+  if (diffDays < 15){
+    bool = true;
+  }
+});
+console.log(bool);
+console.log(today);
+
 
 // 🎯 TODO: Reasonable price
 // // 1. Log if coteleparis is a reasonable price shop (true or false)
 // // A reasonable price if all the products are less than 100€
 
+ var bool = true;
+ COTELE_PARIS.forEach(element => {
+   if (element.price > 100){
+     bool = false;
+   }
+ });
+ console.log(bool);
 
 // 🎯 TODO: Find a specific product
 // 1. Find the product with the uuid `b56c6d88-749a-5b4c-b571-e5b5c6483131`
 // 2. Log the product
 
+COTELE_PARIS.forEach(element => {
+  if (element.uuid == 'b56c6d88-749a-5b4c-b571-e5b5c6483131'){
+    console.log(element);
+  }
+});
 
 // 🎯 TODO: Delete a specific product
 // 1. Delete the product with the uuid `b56c6d88-749a-5b4c-b571-e5b5c6483131`
 // 2. Log the new list of product
+
+COTELE_PARIS.forEach(element => {
+  if (element.uuid == 'b56c6d88-749a-5b4c-b571-e5b5c6483131'){
+    const index = COTELE_PARIS.indexOf(element)
+    COTELE_PARIS.splice(index, 1)
+  }
+});
+console.log(COTELE_PARIS);
 
 // 🎯 TODO: Save the favorite product
 let blueJacket = {
@@ -266,6 +325,10 @@ jacket.favorite = true;
 
 // 1. Log `blueJacket` and `jacket` variables
 // 2. What do you notice?
+console.log(blueJacket);
+console.log(jacket);  
+
+//both have the property favorite to true
 
 blueJacket = {
   'link': 'https://coteleparis.com/collections/tous-les-produits-cotele/products/la-veste-bleu-roi',
@@ -275,7 +338,10 @@ blueJacket = {
 
 // 3. Update `jacket` property with `favorite` to true WITHOUT changing blueJacket properties
 
-
+jacket = Object.assign({}, blueJacket);
+jacket.favorite = true;
+console.log(blueJacket);
+console.log(jacket);
 
 
 
