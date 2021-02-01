@@ -54,6 +54,7 @@ nothing to commit, working tree clean
 
 ```sh
 ❯ git remote add upstream git@github.com:92bondstreet/clear-fashion.git
+## or ❯ git remote add upstream https://github.com/92bondstreet/clear-fashion
 ❯ git fetch upstream
 ❯ git pull upstream master
 ```
