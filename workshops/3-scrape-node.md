@@ -12,7 +12,7 @@
   - [Step 1. No code, Investigation first](#step-1-no-code-investigation-first)
   - [Step 2. Server-side with Node.js](#step-2-server-side-with-nodejs)
 - [📦 Suggested node modules](#-suggested-node-modules)
-- [🍽 A complete Scraping Example for dedicatedbrand.com](#%F0%9F%8D%BD-a-complete-scraping-example-for-dedicatedbrandcom)
+- [👕 A complete Scraping Example for dedicatedbrand.com](#-a-complete-scraping-example-for-dedicatedbrandcom)
 - [👩‍💻 Just tell me what to do](#%E2%80%8D-just-tell-me-what-to-do)
 - [🛣️ Related Theme and courses](#-related-theme-and-courses)
 
