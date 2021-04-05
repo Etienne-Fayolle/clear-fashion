@@ -116,33 +116,49 @@ const sort_by_brand = (products, brand) => {
   renderProducts(brand_product);
 };
 
-const sort_by_date = (products, asc) => {
-  if (asc == false){
-    const date_products = products.sort(function(a,b) {
-      return b["released"] - a["released"];
+function sortby_price(list,desc){
+  console.log("prices")
+  if(desc){
+    return list.sort(function (a, b) {
+      return a.price - b.price;
     });
   }
   else{
-    const date_products = products.sort(function(a,b) {
-      return a["released"] - b["released"];
+    return list.sort(function (a, b) {
+      return b.price - a.price;
     });
   }
-  render(date_products, currentPagination);
-};
+}
 
-const sort_by_price = (products, asc) =>{
-  if (asc == false){
-    const price_products = products.sort(function(a,b) {
-      return b["price"] - a["price"];
-    });
+function sortby_date(list,desc){
+  console.log("dates")
+  return list.sort(function (a, b) {
+    var date1 = new Date(a.released);
+    var date2 = new Date(b.released);
+    if(desc){
+      return  date1-date2;
+    }
+    else{
+      return  date2-date1;
+
+    }
+  });
+}
+
+function SortChoice(products,Sort){
+  switch(Sort){
+    case "price-asc":
+      return sortby_price(products,true);
+    case "price-desc":
+      return sortby_price(products,false);
+    case "date-asc":
+      return sortby_date(products,true);
+    case "date-desc":
+      return sortby_date(products,false);
+    default :
+      return products;
   }
-  else{
-    const price_products = products.sort(function(a,b) {
-      return a["price"] - b["price"];
-    });
-  }
-  renderProducts(price_products);
-};
+}
 
 /**
  * Declaration of all Listeners
@@ -170,22 +186,8 @@ selectPage.addEventListener('change', event => {
     .then(() => render(currentProducts, currentPagination));
 });
 
-selectSort.addEventListener('change', event =>{
-
-  if(event.target.value === 'price-asc'){
-    currentProducts = sort_by_price(currentProducts, false)
-  }
-  if(event.target.value === 'price-desc'){
-    currentProducts = sort_by_price(currentProducts, true)
-
-  }
-  if(event.target.value === 'date-asc'){
-    currentProducts = sort_by_date(currentProducts, false)
-  }
-  if(event.target.value === 'date-desc'){
-    currentProducts = sort_by_date(currentProducts, true)
-  }
-  render(currentProducts, currentPagination);
+selectSort.addEventListener('change', event => {
+  renderProducts(SortChoice(currentProducts, event.target.value));
 });
 
 selectBrand.addEventListener('change', event => {
