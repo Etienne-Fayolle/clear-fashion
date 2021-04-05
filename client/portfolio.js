@@ -5,12 +5,16 @@
 let currentProducts = [];
 let currentPagination = {};
 
-// initiate selectors
+// inititiqte selectors
 const selectShow = document.querySelector('#show-select');
 const selectPage = document.querySelector('#page-select');
+const selectBrand = document.querySelector('#brand-select');
+const selectSort = document.querySelector('#sort-select');
 const sectionProducts = document.querySelector('#products');
 const spanNbProducts = document.querySelector('#nbProducts');
-
+const spanP50 = document.querySelector('#P50');
+const spanP90 = document.querySelector('#P90');
+const spanP95 = document.querySelector('#P95');
 /**
  * Set global value
  * @param {Array} result - products to display
@@ -30,7 +34,7 @@ const setCurrentProducts = ({result, meta}) => {
 const fetchProducts = async (page = 1, size = 12) => {
   try {
     const response = await fetch(
-      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
+      `https://server-ebon-chi.vercel.app/products?page=${page}&size=${size}`
     );
     const body = await response.json();
 
@@ -102,6 +106,44 @@ const render = (products, pagination) => {
   renderIndicators(pagination);
 };
 
+const sort_by_brand = (products, brand) => {
+  const brand_product = [];
+  products.forEach(element => {
+    if (element["b"] == brand){
+      brand_product.push(element)
+    }
+  });
+  renderProducts(brand_product);
+};
+
+const sort_by_date = (products, asc) => {
+  if (asc == false){
+    const date_products = products.sort(function(a,b) {
+      return b["released"] - a["released"];
+    });
+  }
+  else{
+    const date_products = products.sort(function(a,b) {
+      return a["released"] - b["released"];
+    });
+  }
+  render(date_products, currentPagination);
+};
+
+const sort_by_price = (products, asc) =>{
+  if (asc == false){
+    const price_products = products.sort(function(a,b) {
+      return b["price"] - a["price"];
+    });
+  }
+  else{
+    const price_products = products.sort(function(a,b) {
+      return a["price"] - b["price"];
+    });
+  }
+  renderProducts(price_products);
+};
+
 /**
  * Declaration of all Listeners
  */
@@ -123,5 +165,29 @@ document.addEventListener('DOMContentLoaded', () =>
 );
 
 selectPage.addEventListener('change', event => {
-  
+  fetchProducts(parseInt(event.target.value), currentProducts.length)
+    .then(setCurrentProducts)
+    .then(() => render(currentProducts, currentPagination));
+});
+
+selectSort.addEventListener('change', event =>{
+
+  if(event.target.value === 'price-asc'){
+    currentProducts = sort_by_price(currentProducts, false)
+  }
+  if(event.target.value === 'price-desc'){
+    currentProducts = sort_by_price(currentProducts, true)
+
+  }
+  if(event.target.value === 'date-asc'){
+    currentProducts = sort_by_date(currentProducts, false)
+  }
+  if(event.target.value === 'date-desc'){
+    currentProducts = sort_by_date(currentProducts, true)
+  }
+  render(currentProducts, currentPagination);
+});
+
+selectBrand.addEventListener('change', event => {
+  sort_by_brand(currentProducts, event.target.value)
 });
